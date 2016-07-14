@@ -18,7 +18,7 @@ var roleHarvester2 = {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION ||
                                 structure.structureType == STRUCTURE_SPAWN ||
-                                structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+                                structure.structureType == STRUCTURE_TOWER) && (structure.energyCapacity - structure.energy) > 49;
                     }
             });
             if(targets.length > 0) {

@@ -56,8 +56,8 @@ module.exports.loop = function () {;
         console.log('Spawning new harvester: ' + newName);
         return;
     }
-    if(harvesters2.length < 3){
-        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'harvester2'});
+    if(harvesters2.length < 2){
+        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'harvester2'});
         console.log('Spawning new harvester2: ' + newName);
         return;
     }

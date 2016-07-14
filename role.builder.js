@@ -2,6 +2,8 @@ var roleBuilder = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        
+        
 
         if(creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
@@ -29,7 +31,7 @@ var roleBuilder = {
                     }
                 }
                 else{
-                    creep.moveTo(Game.flags.Rest1);
+                    creep.moveTo(Game.flags.moveTo1);
                 }
             }
         }
