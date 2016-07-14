@@ -32,7 +32,7 @@ var roleTower = {
             //Prioritize everything but roads
             var roads = tower.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
-                        return ((structure.structureType != STRUCTURE_TOWER && structure.structureType != STRUCTURE_ROAD) && (structure.hits < structure.hitsMax) && structure.hits < 5000);
+                        return ((structure.structureType != STRUCTURE_TOWER && structure.structureType != STRUCTURE_ROAD) && (structure.hits < structure.hitsMax) && structure.hits < 20000);
                         //return (structure.hits < structure.hitsMax);
                     }
             });
