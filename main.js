@@ -16,7 +16,12 @@ module.exports.loop = function () {;
         }
     }
     
-    roleTower.run(Game.structures["5786da4721f6060d39b2452a"]);
+    var roads = Game.rooms.E47N9.find(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                        return (structure.structureType == STRUCTURE_TOWER);
+                    }
+            });
+    roleTower.run(roads[0]);
     
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     var harvesters2 = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester2');
@@ -56,13 +61,13 @@ module.exports.loop = function () {;
         console.log('Spawning new harvester2: ' + newName);
         return;
     }
-    if(upgraders.length < 2){
+    if(upgraders.length < 3){
         //var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
-        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
+        var newName = Game.spawns.Spawn1.createCreep([WROK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
         console.log('Spawning new upgrader: ' + newName);
         return;
     }
-    if(builders.length < 2){
+    if(builders.length < 0){
         //var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'builder'});
         var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'builder'});
         console.log('Spawning new builder: ' + newName);

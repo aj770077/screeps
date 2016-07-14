@@ -4,6 +4,7 @@ var roleHarvester2 = {
     run: function(creep) {
         if(creep.carry.energy == 0 && creep.memory.hauling == true){
             creep.memory.hauling = false;
+            creep.memory.target = null;
         }
         if(creep.carry.energy < creep.carryCapacity && creep.memory.hauling == false) {
             var sources = creep.room.find(FIND_SOURCES);
@@ -11,7 +12,7 @@ var roleHarvester2 = {
                 creep.moveTo(sources[0]);
             }
         }
-        else {
+        else if (creep.memory.target == null) {
             creep.memory.hauling = true;
             var targets = creep.room.find(FIND_MY_STRUCTURES, {
                     filter: (structure) => {
@@ -27,9 +28,7 @@ var roleHarvester2 = {
                         closest = targets[i];
                     }
                 }
-                if(creep.transfer(closest, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(closest);
-                }
+                creep.memory.target = closest;
             }
             else{
                 targets = creep.room.find(FIND_STRUCTURES, {
@@ -45,21 +44,34 @@ var roleHarvester2 = {
                             closest = targets[i];
                         }
                     }
-                    if(creep.transfer(closest, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(closest);
+                    creep.memory.target = closest;
+                }
+                else{
+                    creep.memory.hauling = false;
+                }
+            }
+        }
+        if(creep.memory.target){
+            var target = Game.getObjectById(creep.memory.target.id);
+            var err = creep.transfer(target, RESOURCE_ENERGY);
+            if(err == OK){
+                creep.memory.target = null;
+            }
+            else if(err == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target);
+                if(target.structureType != STRUCTURE_CONTAINER){
+                    if(target.energy = target.energyCapacity){
+                        creep.memory.target = null;
                     }
                 }
                 else{
-                    var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-                    if(targets.length) {
-                        if(creep.build(targets[targets.length - 1]) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(targets[targets.length - 1]);
-                        }
-                    }
-                    else{
-                        creep.memory.hauling = false;
+                    if(target.store[RESOURCE_ENERGY] = target.storeCapacity){
+                        creep.memory.target = null;
                     }
                 }
+            }
+            else if(err == ERR_FULL){
+                creep.memory.target = null;
             }
         }
     }

@@ -6,7 +6,30 @@ var roleTower = {
 
         //Repairs up to 5000 hp, prioritize everything but roads
         if(tower.energy > 0) {
-            //Prioritize everything but walls
+            var enemies = tower.room.find(FIND_HOSTILE_CREEPS);
+            if(enemies.length > 0){
+                var best = enemies[0];
+                var bestheur = 0;
+                for(i = 0; i < enemies.length; i++){
+                    var distance = tower.pos.getRangeTo(enemies[i]);
+                    var dps = 600 - 30*(distance - 5);
+                    if(dps < 150){
+                        dps = 150;
+                    }
+                    var enemyHits = enemies[i].hits;
+                    var temp = 0;
+                    if(distance <= 5){ temp += 3; } //If its close, assign high priority (High threat, and high DPS)
+                    if(distance > 5) { temp += (1/(distance - 5)); } //Assign priority scaling with distance (farther away, lower priority)
+                    temp += 1/(~~(enemyHits/dps));
+                    if(temp > bestheur){
+                        bestheur = temp;
+                        best = enemies[i];
+                    }
+                }
+                tower.attack(best);
+                return;
+            }
+            //Prioritize everything but roads
             var roads = tower.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return ((structure.structureType != STRUCTURE_TOWER && structure.structureType != STRUCTURE_ROAD) && (structure.hits < structure.hitsMax) && structure.hits < 5000);
@@ -20,7 +43,6 @@ var roleTower = {
                             closest = roads[i];
                         }
                     }
-                    console.log(closest);
                     tower.repair(closest);
             }
             else{
