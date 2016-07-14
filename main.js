@@ -61,9 +61,9 @@ module.exports.loop = function () {;
         console.log('Spawning new harvester2: ' + newName);
         return;
     }
-    if(upgraders.length < 3){
+    if(upgraders.length < 4){
         //var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
-        var newName = Game.spawns.Spawn1.createCreep([WROK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
+        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
         console.log('Spawning new upgrader: ' + newName);
         return;
     }
