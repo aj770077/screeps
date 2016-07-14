@@ -51,13 +51,13 @@ module.exports.loop = function () {;
         var newName = Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], undefined, {role: 'harvester'});
         return;
     }
-    if(harvesters.length < 3){
-        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'harvester'});
+    if(harvesters.length < 2){
+        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'harvester'});
         console.log('Spawning new harvester: ' + newName);
         return;
     }
-    if(harvesters2.length < 4){
-        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'harvester2'});
+    if(harvesters2.length < 3){
+        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'harvester2'});
         console.log('Spawning new harvester2: ' + newName);
         return;
     }
@@ -67,11 +67,15 @@ module.exports.loop = function () {;
         console.log('Spawning new upgrader: ' + newName);
         return;
     }
-    if(builders.length < 2){
+    var anySites = Game.spawns.Spawn1.room.find(FIND_CONSTRUCTION_SITES);
+    console.log(anySites.length);
+    if(anySites.length > 0){
+        if(builders.length < 2){
         //var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'builder'});
-        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'builder'});
-        console.log('Spawning new builder: ' + newName);
-        return;
+            var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'builder'});
+            console.log('Spawning new builder: ' + newName);
+            return;
+        }
     }
     if(roaders.length < 0){
         var newName = Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], undefined, {role: 'roader'});
