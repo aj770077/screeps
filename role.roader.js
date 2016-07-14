@@ -14,7 +14,7 @@ var roleRoader = {
             //Prioritize everything but walls
             var roads = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
-                        return ((structure.structureType != STRUCTURE_WALL) && (structure.hits < structure.hitsMax));
+                        return ((structure.structureType != STRUCTURE_WALL) && (structure.hits < 5000));
                         //return (structure.hits < structure.hitsMax);
                     }
             });
