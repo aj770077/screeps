@@ -2,6 +2,7 @@ var roleReserve = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        
         if(creep.room != Game.flags.moveTo1.room){
             creep.moveTo(Game.flags.moveTo1);  
             return;

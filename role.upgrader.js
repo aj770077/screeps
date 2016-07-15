@@ -10,7 +10,11 @@ var roleUpgrader = {
                 }
             });
             if(creep.transfer(storage[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                if(creep.carry.energy == 0){
+                    return;
+                }
                 creep.moveTo(storage[0]);
+                return;
             }
         }
 

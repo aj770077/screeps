@@ -86,7 +86,7 @@ module.exports.loop = function () {;
             return;
         }
     }
-    if(roomharvesters.length < 4){
+    if(roomharvesters.length < 3){
         var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'roomharvester'});
         console.log('Spawning new out of room harvester: ' + newName);
         return;
@@ -96,7 +96,7 @@ module.exports.loop = function () {;
         console.log('Spawning new reserver: ' + newName);
         return;
     }
-    if(roaders.length < 0){
+    if(roaders.length < 1){
         var newName = Game.spawns.Spawn1.createCreep([WORK, CARRY, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'roader'});
         console.log('Spawning new roader: ' + newName);
         return;

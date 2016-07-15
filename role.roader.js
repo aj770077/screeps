@@ -3,11 +3,11 @@ var roleRoader = {
     /** @param {Creep} creep **/
     run: function(creep) {
         
-        if(creep.room != Game.flags.moveTo1.room && creep.carry.energy == 0){
+        if(creep.room != Game.flags.moveTo1.room && creep.carry.energy > 0){
             creep.moveTo(Game.flags.moveTo1);  
             return;
         }
-        else if(creep.room != Game.spawns.Spawn1.room && creep.carry.energy == creep.carryCapacity){
+        else if(creep.room != Game.spawns.Spawn1.room && creep.carry.energy == 0){
             creep.moveTo(Game.spawns.Spawn1)
             return;
         }
@@ -86,10 +86,9 @@ var roleRoader = {
                 });
                 if(targets.length > 0) {
                     //This code finds the closest object from a target list
-                    var closest = targets[0];
-                    for(var container in targets){
-                        if(creep.pos.getRangeTo(container) < creep.pos.getRangeTo(closest)){
-                            closest = container;
+                    for(i = 0; i < targets.length; i++){
+                        if(creep.pos.getRangeTo(targets[i]) < creep.pos.getRangeTo(closest)){
+                            closest = targets[i];
                         }
                     }
                     if(creep.withdraw(closest, RESOURCE_ENERGY, creep.carryCapacity - creep.carry) == ERR_NOT_IN_RANGE) {
