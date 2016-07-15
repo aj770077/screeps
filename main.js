@@ -5,6 +5,7 @@ var roleBuilder = require('role.builder');
 var roleRoader = require('role.roader');
 var roleTower = require('role.turret');
 var roleRoomHarvester = require('role.roomharvester');
+var roleReserve = require('role.reserve');
 
 //Main loop handles finding all creeps and issuing orders
 //This file also handles any spawning required.
@@ -30,6 +31,7 @@ module.exports.loop = function () {;
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     var roaders = _.filter(Game.creeps, (creep) => creep.memory.role == 'roader');
     var roomharvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'roomharvester');
+    var reservers = _.filter(Game.creeps, (creep) => creep.memory.role == 'reserver');
     
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
@@ -51,6 +53,9 @@ module.exports.loop = function () {;
         if(creep.memory.role == 'roomharvester') {
             roleRoomHarvester.run(creep);
         }
+        if(creep.memory.role == 'reserver') {
+            roleReserve.run(creep);
+        }
     }
     if(harvesters.length == 0 && harvesters2.length == 0){
         var newName = Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], undefined, {role: 'harvester'});
@@ -66,7 +71,7 @@ module.exports.loop = function () {;
         console.log('Spawning new harvester2: ' + newName);
         return;
     }
-    if(upgraders.length < 3){
+    if(upgraders.length < 4){
         //var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
         var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
         console.log('Spawning new upgrader: ' + newName);
@@ -81,13 +86,18 @@ module.exports.loop = function () {;
             return;
         }
     }
-    if(roomharvesters.length < 3){
-        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'roomharvester'});
+    if(roomharvesters.length < 4){
+        var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'roomharvester'});
         console.log('Spawning new out of room harvester: ' + newName);
         return;
     }
+    if(reservers.length < 1){
+        var newName = Game.spawns.Spawn1.createCreep([MOVE, CLAIM], undefined, {role: 'reserver'});
+        console.log('Spawning new reserver: ' + newName);
+        return;
+    }
     if(roaders.length < 0){
-        var newName = Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], undefined, {role: 'roader'});
+        var newName = Game.spawns.Spawn1.createCreep([WORK, CARRY, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'roader'});
         console.log('Spawning new roader: ' + newName);
         return;
     }

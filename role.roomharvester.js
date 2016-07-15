@@ -3,6 +3,7 @@ var roleroomharvester = {
     /** @param {Creep} creep **/
     run: function(creep) {
         
+        //This if-else sends a creep to a different room when it has picked up the energy it needs.
         if(creep.room != Game.flags.moveTo1.room && creep.carry.energy == 0){
             creep.moveTo(Game.flags.moveTo1);  
             return;

@@ -3,6 +3,17 @@ var roleUpgrader = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
+        if(creep.ticksToLive < 20){
+            var storage = creep.room.find(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return (structure.structureType == STRUCTURE_STORAGE);
+                }
+            });
+            if(creep.transfer(storage[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(storage[0]);
+            }
+        }
+
         if(creep.memory.upgrading && creep.carry.energy == 0) {
             creep.memory.upgrading = false;
         }

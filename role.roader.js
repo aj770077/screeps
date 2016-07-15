@@ -2,6 +2,16 @@ var roleRoader = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        
+        if(creep.room != Game.flags.moveTo1.room && creep.carry.energy == 0){
+            creep.moveTo(Game.flags.moveTo1);  
+            return;
+        }
+        else if(creep.room != Game.spawns.Spawn1.room && creep.carry.energy == creep.carryCapacity){
+            creep.moveTo(Game.spawns.Spawn1)
+            return;
+        }
+        
         if(creep.memory.building2 && creep.carry.energy == 0) {
             creep.memory.building2 = false;
             creep.memory.target = null;
@@ -66,15 +76,12 @@ var roleRoader = {
             }
             */
             
-            if(Game.spawns.Spawn1.energy > 310){
-                if(creep.withdraw(Game.spawns.Spawn1, RESOURCE_ENERGY,50 - creep.carry.energy) == ERR_NOT_IN_RANGE){
-                    creep.moveTo(Game.spawns.Spawn1);
-                }
+            if(false){
             }
             else{
                 targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
-                        return ((structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 50);
+                        return ((structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_STORAGE) && structure.store[RESOURCE_ENERGY] > 50);
                     }
                 });
                 if(targets.length > 0) {
