@@ -30,7 +30,7 @@ var roleBuilder = {
                     }
                 }
                 else{
-                    creep.moveTo(Game.flags.moveTo1);
+                    creep.moveTo(Game.flags.moveTo2);
                 }
             }
         }

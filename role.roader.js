@@ -16,7 +16,7 @@ var roleRoader = {
             creep.memory.building2 = false;
             creep.memory.target = null;
         }
-        if(!creep.memory.building2 && creep.carry.energy == creep.carryCapacity) {
+        if(!creep.memory.building2 && creep.carry.energy > 0) {
             creep.memory.building2 = true;
         }
 
@@ -35,7 +35,9 @@ var roleRoader = {
                             closest = roads[i];
                         }
                     }
-                    creep.memory.target = closest;
+                    if(creep.repair(closest) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(closest);
+                    }
             }
             else{
                 //now check if there is a wall that could be repaired
@@ -52,14 +54,13 @@ var roleRoader = {
                             closest = roads[i];
                         }
                     }
-                    creep.memory.target = closest;
+                    if(creep.repair(closest) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(closest);
+                    }
                 }
                 else{
                     creep.moveTo(Game.flags.Rest1);
                 }
-            }
-            if(creep.memory.target != null && creep.repair(creep.memory.target) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(creep.memory.target);
             }
         }
         else {
@@ -86,6 +87,7 @@ var roleRoader = {
                 });
                 if(targets.length > 0) {
                     //This code finds the closest object from a target list
+                    var closest = targets[0]
                     for(i = 0; i < targets.length; i++){
                         if(creep.pos.getRangeTo(targets[i]) < creep.pos.getRangeTo(closest)){
                             closest = targets[i];

@@ -3,7 +3,6 @@ var roleTower = {
     //repairs only now
     /** @param {tower} tower **/
     run: function(tower) {
-
         //Repairs up to 5000 hp, prioritize everything but roads
         if(tower.energy > 0) {
             var enemies = tower.room.find(FIND_HOSTILE_CREEPS);
@@ -21,13 +20,18 @@ var roleTower = {
                     if(distance <= 5){ temp += 3; } //If its close, assign high priority (High threat, and high DPS)
                     if(distance > 5) { temp += (1/(distance - 5)); } //Assign priority scaling with distance (farther away, lower priority)
                     temp += 1/(~~(enemyHits/dps));
+                    if(enemies[i].owner.username == "Nataru"){
+                        temp = -999
+                    }
                     if(temp > bestheur){
                         bestheur = temp;
                         best = enemies[i];
                     }
                 }
-                tower.attack(best);
-                return;
+                if(best.owner.username != "Nataru"){
+                    tower.attack(best);
+                    return;
+                }
             }
             //Prioritize everything but roads
             var roads = tower.room.find(FIND_STRUCTURES, {
