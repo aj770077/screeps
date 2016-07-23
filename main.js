@@ -86,7 +86,7 @@ module.exports.loop = function () {;
         console.log('Spawning new harvester2: ' + newName);
         return;
     }
-    if(warriors.length < 1){
+    if(warriors.length < 0){
         var newName = Game.spawns.Spawn1.createCreep([TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, ATTACK, ATTACK], undefined, {role: 'warrior'});
         console.log('Spawning new Warrior: ' + newName);
         return;
@@ -98,7 +98,7 @@ module.exports.loop = function () {;
         return;
     }
     */
-    if(upgraders.length < 4){
+    if(upgraders.length < 3){
         //var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
         var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
         console.log('Spawning new upgrader: ' + newName);
@@ -106,24 +106,24 @@ module.exports.loop = function () {;
     }
     var anySites = Game.spawns.Spawn1.room.find(FIND_CONSTRUCTION_SITES);
     if(anySites.length > 0){
-        if(builders.length < 2){
+        if(builders.length < 0){
         //var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'builder'});
             var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'builder'});
             console.log('Spawning new builder: ' + newName);
             return;
         }
     }
-    if(reservers.length < 1){
+    if(reservers.length < 0){
         var newName = Game.spawns.Spawn1.createCreep([MOVE, MOVE, CLAIM, CLAIM], undefined, {role: 'reserver'});
         console.log('Spawning new reserver: ' + newName);
         return;
     }
-    if(roomharvesters.length < 4){
+    if(roomharvesters.length < 0){
         var newName = Game.spawns.Spawn1.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], undefined, {role: 'roomharvester'});
         console.log('Spawning new out of room harvester: ' + newName);
         return;
     }
-    if(roaders.length < 1){
+    if(roaders.length < 0){
         var newName = Game.spawns.Spawn1.createCreep([WORK, CARRY, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'roader'});
         console.log('Spawning new roader: ' + newName);
         return;
